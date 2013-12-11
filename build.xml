@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<project name="JBPMResources" basedir="." default="run">
+	<property file="props.properties"/>
+	<taskdef name="deployproc" classname="org.rageco.webdav.ResourceWebdav">
+        <classpath>
+            <fileset dir="${lib}" >
+               <include name="**/*.jar" />
+            </fileset>
+        	<pathelement location="dist/JBPMResources.jar"/>
+    	</classpath>
+	</taskdef>
+	
+	<!--Main Targets -->
+	<target name="deploy">
+		<deployproc username="${username}" password="${password}"
+			url="${protocol}://${ip}:${port}${webDavPath}${urlPackage}/">
+			<fileset dir="${resourcesPath}"/>
+		</deployproc>
+	</target>
+	
+	<target name="compile">
+		<javac destdir="bin" srcdir="src" includeantruntime="true">
+            <classpath>
+            <fileset dir="${lib}" >
+               <include name="**/*.jar" />
+            </fileset>
+            </classpath>
+		</javac>
+		<jar destfile="dist/JBPMResources.jar" basedir="bin" update="false" />
+	</target>
+	
+	<target name="run">
+		<antcall target="deploy"></antcall>
+	</target>
+</project>
