@@ -11,4 +11,4 @@ And type on command line "./install.sh" or "install.bat", or if you have apache 
 
 The available targets are:
 * compile
-* run
+* run (default)
